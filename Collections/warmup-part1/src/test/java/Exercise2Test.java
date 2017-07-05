@@ -30,7 +30,7 @@ public class Exercise2Test {
 
     @Test
     public void testAdd() throws Exception {
-        listToTest.clear();
+       // listToTest.clear();
         Assert.assertEquals("Test clear method", 0, listToTest.getDifferentElements());
 
         for(int i = 0; i < 10; i++)
