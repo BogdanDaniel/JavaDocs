@@ -19,26 +19,89 @@ public class MyHashMap {
 
     public MyHashMap() {
 
-        // TODO Initialize buckets list
+        // Initialize buckets list
+
+
+      this.buckets = new ArrayList<LinkedList<MyEntry>>(BUCKET_ARRAY_SIZE);
+
+            for(int i=0;i<BUCKET_ARRAY_SIZE;i++){
+
+             buckets.add(new LinkedList<MyEntry>());
+
+                   // System.out.println(buckets.get(i));
+
+            }
+
+
     }
 
     public String get(String key) {
-        // TODO
+        //
+
+      for(MyEntry aux : buckets.get(key.hashCode()%BUCKET_ARRAY_SIZE)){
+         if(aux.getKey().equals(key))
+             return aux.getValue();
+      }
         return null;
     }
 
     public void put(String key, String value) {
         // TODO
+        int pus = 0;
+        MyEntry a = new MyEntry(key, value);
+
+        if (key == null)
+            buckets.get(0).add(a);
+
+        else {
+
+
+            for (MyEntry b : buckets.get(Math.abs(key.hashCode() % BUCKET_ARRAY_SIZE))) {
+                if (b.getKey().equals(a.getKey())) {
+                    b.setValue(a.getValue());
+                    // buckets.get(Math.abs(key.hashCode()%BUCKET_ARRAY_SIZE)).add(b);
+                    pus = 1;
+                    break;
+
+                }
+            }
+
+
+            if (pus == 0)
+                buckets.get(Math.abs(key.hashCode() % BUCKET_ARRAY_SIZE)).add(a);
+
+
+        }
     }
 
     public Set<String> keySet() {
         // TODO
-        return null;
+        Set<String> aux= new TreeSet<String>();
+
+        for(int i=0;i<buckets.size();i++){
+            for(int j=0;j<buckets.get(i).size();j++) {
+                if(buckets.get(i).get(j).getKey()== null)
+                    aux.add("null");
+                else aux.add(buckets.get(i).get(j).getKey());
+            }
+
+        }
+
+        return aux;
     }
 
     public Collection<String> values() {
         // TODO
-        return null;
+        Collection<String> aux= new ArrayList<String>();
+
+
+        for(int i=0;i<buckets.size();i++){
+            for(int j=0;j<buckets.get(i).size();j++) {
+                aux.add(buckets.get(i).get(j).getValue());
+            }
+
+        }
+        return aux;
     }
 
     public String remove(String key) {
@@ -58,7 +121,11 @@ public class MyHashMap {
 
     public int size() {
         // TODO Return the number of the Entry objects stored in all the buckets
-        return 0;
+        int size =0;
+        for(int i=0;i<buckets.size(); i++){
+           size += buckets.get(i).size();
+        }
+        return size;
     }
 
     public void clear() {
@@ -99,5 +166,11 @@ public class MyHashMap {
         public void setValue(String value) {
             this.value = value;
         }
+
+        public String toString(){
+            return "[" +key+","+value+"]";
+        }
+
     }
+
 }

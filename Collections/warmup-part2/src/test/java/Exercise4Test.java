@@ -9,6 +9,7 @@ public class Exercise4Test {
     @Test
     public void testPutMethod() throws Exception {
         MyHashMap myHashMap = getMyHashMap();
+
         HashMap<String, String> expected = getExpected();
 
         Assert.assertEquals("Test size", myHashMap.size(), expected.size());
@@ -35,12 +36,15 @@ public class Exercise4Test {
 
         Assert.assertEquals("Test size", myHashMap.size(), expected.size());
 
+        System.out.println(myHashMap.keySet());
+        System.out.println(expected.keySet());
         Assert.assertEquals("Test if expected contains all the keys from MyHashMap", true,
                 expected.keySet().containsAll(myHashMap.keySet()));
 
         Assert.assertEquals("Test if expected contains all the values from MyHashMap", true,
                 expected.values().containsAll(myHashMap.values()));
-
+        System.out.println(expected.keySet());
+        System.out.println(myHashMap.keySet());
         Assert.assertEquals("Test if MyHashMap contains all the keys from expected", true,
                 myHashMap.keySet().containsAll(expected.keySet()));
 
@@ -55,7 +59,7 @@ public class Exercise4Test {
         myHashMap.put("ALGERIA","Algiers");
         expected.put("ALGERIA","Algiers");
 
-        Assert.assertEquals("Test size", myHashMap.size(), expected.size());
+        Assert.assertEquals("Test size", expected.size(), myHashMap.size());
 
         Assert.assertEquals("Test if expected contains all the keys from MyHashMap", true,
                 expected.keySet().containsAll(myHashMap.keySet()));
@@ -139,10 +143,10 @@ public class Exercise4Test {
         HashMap<String, String> expected = getExpected();
 
         Assert.assertEquals("Test if expected contains all the entries from MyHashMap", true,
-                expected.entrySet().containsAll(myHashMap.entrySet()));
+                expected.entrySet().containsAll(myHashMap.keySet()));
 
         Assert.assertEquals("Test if MyHashMap contains all the entries from expected", true,
-                myHashMap.entrySet().containsAll(expected.entrySet()));
+                myHashMap.entrySet().containsAll(expected.keySet()));
     }
 
     private MyHashMap getMyHashMap(){
